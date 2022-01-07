@@ -61,7 +61,25 @@ but array numbers may contain duplicates in this problem. so we need to distinct
 
 there is 2 way to solve it
 
-1. 
+1. Use the solution of `78.subsets` and filter at the end
+2. Directly filter out duplicate sets during calculation
+
+For `Method 1`, larger memory may be generated because unnecessary collections will be stored. For example, `[1,1,1]` will generate `[1]`, `[1,1]`, `[ 1,1,1]` 3 sets, but using the previous method will produce 6 sets, the difference is
+
+                   3! -3 = 3
+
+Generally, this can be used as a promotion. If all 10 numbers are the same, then it is
+
+                  10! -10 ≈ 10!
+
+`Method 1` Discard. Only use `Method 2`
+
+**Excluding the collection of the same number** can achieve the filtering effect
+
+For example, `[1, 1, 1]` actually only needs to calculate the first `1` to get
+`[1]`, `[1, 1]`, `[1, 1, 1]`
+
+It can be concluded that **Skip the same number for calculation**
 
 
 ```
@@ -86,33 +104,6 @@ public:
     }
 };
 ```
-
-**another solution**
-
-可以利用集合相加的形式，这样做的好处是当数组比较打的时候，可能会引起崩溃。 `O(2^n)`
-
-We can use set-addition. The advantage of this is that when there is so many number in `nums` can lead to program cause a crash   
-
-
-```
-class Solution {
-public:
-    vector<vector<int>> subsets(vector<int>& nums) {
-        vector<vector<int>>ret(1,vector<int>(0));
-        for(int val : nums){
-            int n = ret.size();
-            for(int i = 0 ; i < n ; ++i){
-                ret.push_back(ret[i]);
-                ret.back().push_back(val);
-            }
-        }
-        
-        return ret;
-    }
-};
-```
-
-
 
 
 
