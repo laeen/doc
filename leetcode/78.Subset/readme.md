@@ -24,7 +24,7 @@ Output: [[],[0]]
 - All the numbers of nums are unique.
 
 
-##Solution
+## Solution
 
 核心思想是利用深度优先遍历（DFS)   `O(2^n)`
 
@@ -85,9 +85,9 @@ public:
 
 **another solution**
 
-可以利用集合相加的形式，这样做的好处是当数组比较打的时候，可能会引起崩溃。 `O(2^n)`
+可以利用集合相加的形式，这样做的好处是防止当数组比较大的时候，可能会引起崩溃。 `O(2^n)`
 
-We can use set-addition. The advantage of this is that when there is so many number in `nums` can lead to program cause a crash   
+We can use set-addition. The advantage of this is to prevent crashes when the `nums` is relatively large
 
 
 ```
