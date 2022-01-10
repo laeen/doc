@@ -68,6 +68,36 @@ Variations of such issues are nothing more than:
 
 - **pruning**
 
+```
+class Solution {
+public:
+    vector<vector<string>> ret;
+    vector<vector<string>> partition(string s) {
+        vector<string> tmp;
+        helper(s,tmp , 0);
+        return ret;
+    }
+    void helper(string &s , vector<string> tmp , int index){
+        if(index==s.size()){ret.push_back(tmp);return;}
+        string t("");
+        for(int i = index ; i < s.size() ; ++i){
+            t += s[i];
+            if(ispail(t)){
+                tmp.push_back(t);
+                helper(s,tmp,i+1);
+                tmp.pop_back();
+            }
+        }       
+    }
+    
+    bool ispail(string &t){
+        int i = 0 , j = t.size()-1;
+        while( i < j && t[i] == t[j]) ++i,--j;
+        return i >= j;
+    }
+};
+```
+
 
 
 
