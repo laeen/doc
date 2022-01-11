@@ -1,4 +1,4 @@
-# [131. Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/)
+# [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
 
 ## Description
 Given `n` pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
