@@ -131,7 +131,7 @@ So it can be concluded that
 The key lies in point 2, the boundary. The answer is given to use long long because *INT_MAX* leads to out-of-bounds
 
 
-```
+```c++
 class Solution {
 public:
     bool isValidBST(TreeNode* root) {
@@ -146,80 +146,3 @@ public:
 };
 ```
 
-
-## [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
-
-https://leetcode.com/problems/linked-list-cycle/
-
-非常经典的一道题目，可以忽略题目中的 `pos` 参数， 判断链表有没有环,快慢指针的应用
-
-
-```c++
-class Solution {
-public:
-    bool hasCycle(ListNode *head) {
-        if (!head || !(head->next)) return false;
-        
-        ListNode *first = head;
-        ListNode *second = head->next;
-        
-        while(second && second->next){
-            
-            if(first == second) return true;
-            
-            first = first->next;
-            second = second->next->next;
-        
-        }
-        
-        return false;
-        
-    }
-};
-```
-
-
-## [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
-
-https://leetcode.com/problems/reverse-linked-list/
-
-链表反转问题, 不需要二级指针。
-
-总结一下什么地方用二级指针比较方便： 链表删除的时候。
-
-因为普通的删除，需要进行3步, 假设存在链表
-`3 -> 2 -> 1 -> NULL` 当前需要删除值是 `2` 的点， 这个时候如果是使用一级指针， 那么需要2个指针来完成，首先是 `3` 然后 `2`, 个人习惯使用二级指针来进行删除操作
-```C++
-// present 表示当前指针
-// pre 表示前一个指针
-// cur 表示presend的地址
-// 一级指针
-    prev->next=present->next;
-
-// 二级指针
-    *cur = presend->next;
-
-
-```
-
-```c++
-class Solution {
-public:
-    ListNode* reverseList(ListNode* head) {
-        if(!head || !head->next)return head;
-        
-        ListNode *pre = NULL;
-        ListNode *next = head->next;
-        
-        while(next){
-            head->next = pre;
-            pre = head;
-            head = next;
-            next = head->next;
-        }
-        head->next = pre;
-        return head;
-        
-    }
-};
-```

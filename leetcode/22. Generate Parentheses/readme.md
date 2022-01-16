@@ -143,12 +143,12 @@ As you know from the `left` and `right` calls above, these two variables must be
 
 And there is a hidden condition that the number on the right is always greater than or equal to the number on the left
 
-````
+````c++
         if(left>0) dfs(ret, t + '(', left-1, right);
         if(right>0 && left < right) dfs(ret, t + ')', left, right-1);
 ````
 
-```
+```c++
 class Solution {
 public:
     vector<string> generateParenthesis(int n) {
