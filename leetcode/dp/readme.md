@@ -91,3 +91,48 @@ public:
     }
 };
 ```
+
+
+## [322. Coin Change](https://leetcode.com/problems/coin-change/)
+
+https://leetcode.com/problems/coin-change/
+
+01 背包问题， 0 1背包表示每种东西都有两种状态
+0：表示不拿
+1：表示拿
+
+这个题目时衍生问题，每个硬币有无限多
+
+```c++
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        // 最经典的01 背包问题，这个是衍生版本，不过也差不多
+        // 这种题就是假设 dp[i] 表示i块钱需要的dp[i]个硬币。
+        // 这里假设当现在需要i块钱时，有两种情况
+        //  
+        //状态转移方程就是
+        // 1.当需要将coins[k]放入口袋，dp[i] = dp[i-coins[k]] + 1 (k=0,1,2,3...n), i>=coins[k]
+        // 2.不需要将coins[k]放入口袋，dp[i] = dp[i]
+        // 取这两者的最小值
+        // 然后初始状态就是dp[0] = 0, 其他的就设置成一个大一点的数字，题目是10^4, 可以直接设成amount + 1 (不会存在小于1的硬币)
+        
+        // vector<int> dp(n,x), 表示初始化一个 长度为n， 初始值为x的vector
+        
+        vector<int> dp(amount+1, amount+1);
+        
+        dp[0] = 0;
+        
+        for(int i = 1; i <= amount; ++i){
+            for(int k = 0; k < coins.size(); ++k){
+                //dp[i] = dp[i-coins[k]] + 1 (k=0,1,2,3...n), i>=coins[k]
+                if(coins[k] <= i)
+                    dp[i] = min(dp[i-coins[k]] + 1, dp[i]);
+                
+            }
+            
+        }
+    return dp[amount] == amount+1 ? -1 : dp[amount];
+    }
+};
+```
