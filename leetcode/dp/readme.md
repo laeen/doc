@@ -219,3 +219,64 @@ public:
 };
 
 ```
+
+
+## [44. Wildcard Matching](https://leetcode.com/problems/wildcard-matching/)
+
+这个题目是上一个题目的削弱版
+
+```c++
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        /* 跟上一题类似，这题也是模式匹配
+        p 有3种情况：[a-z], ?, *
+        
+        dp[i][j] 表示 s 的前 i 个字符 和 p 的前 j 个字符匹配结果
+        
+        1. 当 p[j-1] = ? or p[j-1] = [a-z]
+            dp[i][j] = dp[i-1][j-1] && (p[j-1] == s[i-1] || p[j-1] == ?)
+        
+        2. 当 p[j-1] = *，
+            A. 当表示空的时候,只需要看p[j-2]的时候，是不是为true 比如 s=aa   p=aa*
+            dp[i][j] = dp[i][j-1]
+            
+            B. 当不表示为空的时候，只需要看，s[i-2] 是不是true，比如 s=aabc p=aa*
+            dp[i][j] = dp[i-1][j]
+            
+            综上
+            dp[i][j] = dp[i][j-1] || dp[i-1][j]
+        
+        3.初始情况， 当dp[..][0] 肯定都是false，
+            d[0][..] 需要 p都是 * 才为true
+            
+            dp[0][j] = dp[0][j-1] && p[j-1] == '*' 
+                
+        */
+        int n = s.size(), m = p.size();
+        
+	    vector< vector<int> > dp(n+1 , vector<int>(m+1 , 0));        
+        
+        dp[0][0] = 1;
+        
+        
+        for(int j = 1; j <= m ; j++){
+            // 这里其实出现了别的可以直接break， 但是为了便于理解，就这样写
+            dp[0][j] = dp[0][j-1] && p[j-1] == '*'; 
+        }
+        
+        for(int i = 1; i <= n; ++i){
+            for(int j = 1; j <= m; ++j){
+                if(p[j-1] == '*'){
+                    dp[i][j] = dp[i-1][j] || dp[i][j-1];
+                }else{
+                    dp[i][j] = dp[i-1][j-1] && (p[j-1] == s[i-1] || p[j-1] == '?');
+                }
+                
+            }
+        }
+          
+        return dp[n][m];
+    }
+};
+```
